@@ -38,7 +38,7 @@ int createSocket(int port)
 
 void broadCast(int id)
 {
-    for (int i = 0; i <= maxSocket; ++i)
+    for (int i = 3; i <= maxSocket; ++i)
     {
         if (i != id && FD_ISSET(i, &activeSockets))
             write(i, buffer, strlen(buffer));
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
             exit(1);
         }
 
-        for (int id = 0; id <= maxSocket; ++id)
+        for (int id = 3; id <= maxSocket; ++id)
         {
             if (FD_ISSET(id, &readSockets))
             {
@@ -101,11 +101,7 @@ int main(int argc, char **argv)
                     {
                         buffer[n] = '\0';
                         char tmp[300000];
-                        for (int i = 0; buffer[i]; ++i)
-                        {
-                            tmp[i] = buffer[i];
-                        }
-                        tmp[n] = '\0';
+                        strcpy(tmp, buffer);
                         sprintf(buffer, "client %d: %s", clientSockets[id], tmp);
                     }
                 }
